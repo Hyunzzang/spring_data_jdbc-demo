@@ -4,8 +4,10 @@ spring:
   datasource:
     username: "devuser"
     password: "per123"
-    url: "jdbc:mysql://localhost:3306/test"
-    driverClassName: "com.mysql.cj.jdbc.Driver"
+    jdbc-url: "jdbc:mysql:replication://localhost:3306,localhost:13306/test?autoReconnect=true&roundRobinLoadBalance=true&autoReconnectForPools=true&failOverReadOnly=true"
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    configuration:
+      maximum-pool-size: 10
 
 logging:
   level:

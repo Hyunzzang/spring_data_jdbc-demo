@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class JdbcTemplateTest {
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate baseJdbcTemplate;
 
     @Autowired
     private NamedParameterJdbcOperations namedParameterJdbcOperations;
@@ -28,10 +28,10 @@ public class JdbcTemplateTest {
     @Test
     @Transactional
     public void insertDataTest() {
-        jdbcTemplate.execute("INSERT INTO student(first_name,last_name, year) VALUES('Victor', 'Hugo', 1999)");
-        jdbcTemplate.execute("INSERT INTO student(first_name,last_name, year) VALUES('Dante', 'Alighieri', 2002)");
-        jdbcTemplate.execute("INSERT INTO student(first_name,last_name, year) VALUES('Stefan', 'Zweig', 2005)");
-        jdbcTemplate.execute("INSERT INTO student(first_name,last_name, year) VALUES('Oscar', 'Wilde', 2011)");
+        baseJdbcTemplate.execute("INSERT INTO student(first_name,last_name, year) VALUES('Victor', 'Hugo', 1999)");
+//        baseJdbcTemplate.execute("INSERT INTO student(first_name,last_name, year) VALUES('Dante', 'Alighieri', 2002)");
+//        baseJdbcTemplate.execute("INSERT INTO student(first_name,last_name, year) VALUES('Stefan', 'Zweig', 2005)");
+//        baseJdbcTemplate.execute("INSERT INTO student(first_name,last_name, year) VALUES('Oscar', 'Wilde', 2011)");
 
 
         // todo: 도메인 객체에 필드에 set메소드가 없을 경우 객체에 주입이 되지 않음.
@@ -41,7 +41,5 @@ public class JdbcTemplateTest {
 
         assertThat(studentList.size()).isNotEqualTo(0);
         assertThat(studentList.get(0).getFirstName()).isEqualTo("Victor");
-
-//        jdbcTemplate.execute("delete from student");
     }
 }

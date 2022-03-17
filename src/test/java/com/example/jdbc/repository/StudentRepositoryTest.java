@@ -4,6 +4,7 @@ import com.example.jdbc.model.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class StudentRepositoryTest {
     private StudentRepository studentRepository;
 
     @Test
+    @Transactional
     public void saveAndFindByLastName_test() {
         Student student = Student.builder()
                 .firstName("h2")
