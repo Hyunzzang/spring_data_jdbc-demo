@@ -1,6 +1,7 @@
 package com.example.jdbc.repository;
 
-import com.example.jdbc.model.Student;
+import com.example.jdbc.test.model.Student;
+import com.example.jdbc.test.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

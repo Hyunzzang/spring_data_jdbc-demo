@@ -1,4 +1,4 @@
-package com.example.jdbc.model;
+package com.example.jdbc.test.model;
 
 import lombok.Builder;
 import lombok.Getter;

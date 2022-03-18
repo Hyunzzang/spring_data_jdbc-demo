@@ -6,52 +6,43 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jdbc.repository.config.AbstractJdbcConfiguration;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.init.DataSourceInitializer;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJdbcRepositories(basePackages = "com.example.jdbc.repository",
+@EnableJdbcRepositories(basePackages = "com.example.jdbc.test.repository",
+        jdbcOperationsRef = "baseNamedParameterJdbcOperations",
         transactionManagerRef = "baseTransactionManager")
 public class DemoJdbcConfig extends AbstractJdbcConfiguration {
 
     @Bean("baseDataSource")
-    @ConfigurationProperties("spring.datasource")
+    @ConfigurationProperties("spring.test.datasource")
     public DataSource baseDataSource() {
         return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }
 
-    @Bean
-    public NamedParameterJdbcOperations namedParameterJdbcOperations(DataSource baseDataSource) {
+    @Bean("baseNamedParameterJdbcOperations")
+    @Primary
+    public NamedParameterJdbcOperations baseNamedParameterJdbcOperations(@Qualifier("baseDataSource") DataSource baseDataSource) {
         return new NamedParameterJdbcTemplate(baseDataSource);
     }
 
-    @Bean
+    @Bean("baseJdbcTemplate")
     public JdbcTemplate baseJdbcTemplate(DataSource baseDataSource) {
         return new JdbcTemplate(baseDataSource);
     }
 
-    @Bean
+    @Bean("baseTransactionManager")
+    @Primary
     public PlatformTransactionManager baseTransactionManager(DataSource baseDataSource) {
         return new DataSourceTransactionManager(baseDataSource);
     }
-
-//    @Bean
-//    public DataSourceInitializer h2DataSourceInitializer(
-//            @Qualifier("baseDataSource") final DataSource dataSource) {
-//        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-//        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
-//        dataSourceInitializer.setDataSource(dataSource);
-//        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
-//        return dataSourceInitializer;
-//    }
 }

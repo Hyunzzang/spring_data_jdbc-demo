@@ -1,15 +1,13 @@
-package com.example.jdbc.repository;
+package com.example.jdbc.test.repository;
 
-import com.example.jdbc.model.Student;
+import com.example.jdbc.test.model.Student;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface StudentRepository extends CrudRepository<Student, Long> {
     List<Student> findByLastName(@Param("lName") String lastName);
 

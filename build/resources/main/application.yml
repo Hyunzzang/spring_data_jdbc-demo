@@ -1,13 +1,22 @@
 spring:
   liquibase:
     change-log: classpath:db/liquibase-changelog.xml
-  datasource:
-    username: "devuser"
-    password: "per123"
-    jdbc-url: "jdbc:mysql:replication://localhost:3306,localhost:13306/test?autoReconnect=true&roundRobinLoadBalance=true&autoReconnectForPools=true&failOverReadOnly=true"
-    driver-class-name: "com.mysql.cj.jdbc.Driver"
-    configuration:
-      maximum-pool-size: 10
+  test:
+    datasource:
+      username: "devuser"
+      password: "per123"
+      jdbc-url: "jdbc:mysql:replication://localhost:3306,localhost:13306/test?autoReconnect=true&roundRobinLoadBalance=true&autoReconnectForPools=true&failOverReadOnly=true"
+      driver-class-name: "com.mysql.cj.jdbc.Driver"
+      configuration:
+        maximum-pool-size: 10
+  testdb1:
+    datasource:
+      username: "devuser"
+      password: "per123"
+      jdbc-url: "jdbc:mysql://localhost:3306/testdb1?autoReconnect=true"
+      driver-class-name: "com.mysql.cj.jdbc.Driver"
+      configuration:
+        maximum-pool-size: 10
 
 logging:
   level:

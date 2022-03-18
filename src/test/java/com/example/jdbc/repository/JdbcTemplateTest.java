@@ -1,6 +1,6 @@
 package com.example.jdbc.repository;
 
-import com.example.jdbc.model.Student;
+import com.example.jdbc.test.model.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +21,7 @@ public class JdbcTemplateTest {
     private JdbcTemplate baseJdbcTemplate;
 
     @Autowired
-    private NamedParameterJdbcOperations namedParameterJdbcOperations;
+    private NamedParameterJdbcOperations baseNamedParameterJdbcOperations;
 
     private static final RowMapper<Student> ROW_MAPPER = new BeanPropertyRowMapper<>(Student.class);
 
@@ -35,7 +35,7 @@ public class JdbcTemplateTest {
 
 
         // todo: 도메인 객체에 필드에 set메소드가 없을 경우 객체에 주입이 되지 않음.
-        List<Student> studentList = namedParameterJdbcOperations.query(
+        List<Student> studentList = baseNamedParameterJdbcOperations.query(
                 "SELECT student_id, first_name, last_name, year FROM student WHERE last_name = :name ORDER BY student_id",
                 new MapSqlParameterSource("name", "Hugo"), ROW_MAPPER);
 
