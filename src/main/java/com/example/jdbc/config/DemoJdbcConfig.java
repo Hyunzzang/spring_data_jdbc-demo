@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 @EnableJdbcRepositories(basePackages = "com.example.jdbc.test.repository",
         jdbcOperationsRef = "baseNamedParameterJdbcOperations",
         transactionManagerRef = "baseTransactionManager")
-public class DemoJdbcConfig extends AbstractJdbcConfiguration {
+public class DemoJdbcConfig {
 
     @Bean("baseDataSource")
     @ConfigurationProperties("spring.test.datasource")
